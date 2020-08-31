@@ -1,0 +1,26 @@
+config:
+  target: "https://mnagy.cluster-cbpln433zd2q.us-east-1.neptune.amazonaws.com:8182/gremlin"
+  phases:
+    - duration: 5
+      arrivalRate: 2
+      name: Warm up
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 10
+      name: Ramp up load
+    - duration: 20
+      arrivalRate: 10
+      name: Sustained load
+scenarios:
+  - name: "Write"
+    flow:
+      - post:
+          url: "/"
+          json: 
+            gremlin: "g.addV('place').property(id,'All Company').property('name','All Company').next()"
+  - name: "Read"
+    flow:
+      - post:
+          url: "/"
+          json: 
+            gremlin: "g.V().limit(1)"
