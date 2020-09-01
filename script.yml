@@ -1,11 +1,11 @@
 config:
   target: "https://mnagy.cluster-cbpln433zd2q.us-east-1.neptune.amazonaws.com:8182/gremlin"
   phases:
-    - duration: 10
+    - duration: 5
       arrivalRate: 2
       name: Warm up
     - duration: 10
-      arrivalRate: 10
+      arrivalRate: 25
       name: Sustained load
 scenarios:
   - name: "Read"
