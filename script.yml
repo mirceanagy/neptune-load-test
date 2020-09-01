@@ -8,15 +8,9 @@ config:
       arrivalRate: 10
       name: Sustained load
 scenarios:
-  - name: "Write"
-    flow:
-      - post:
-          url: "/"
-          json: 
-            gremlin: "g.addV('place').property(id,'All Company').property('name','All Company').next()"
   - name: "Read"
     flow:
       - post:
           url: "/"
           json: 
-            gremlin: "g.V().limit(1)"
+            gremlin: "g.V('place_2_9').repeat(out('parent')).until(inE('read').otherV().has(id, 'group_2'))"
