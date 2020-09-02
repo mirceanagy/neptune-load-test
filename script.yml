@@ -1,16 +1,23 @@
 config:
-  target: "https://mnagy.cluster-cbpln433zd2q.us-east-1.neptune.amazonaws.com:8182/gremlin"
+  target: "http://mnagy-neptune-441904449.us-east-1.elb.amazonaws.com/gremlin"
   phases:
     - duration: 5
       arrivalRate: 2
       name: Warm up
     - duration: 10
-      arrivalRate: 25
+      arrivalRate: 100
       name: Sustained load
+  payload:
+    path: "./variables10.csv"
+    fields:
+      - "place"
+      - "user"
+    order: "sequence"
 scenarios:
   - name: "Read"
     flow:
       - post:
           url: "/"
-          json: 
-            gremlin: "g.V('place_2_9').repeat(out('parent')).until(inE('read').otherV().has(id, 'group_2'))"
+          json:
+            gremlin: "g.V('{{ place }}').repeat(out('parent')).until(inE('read').otherV().inE('memberOf').otherV().has(id, '{{ user }}'))"
+
