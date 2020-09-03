@@ -12,7 +12,6 @@ config:
     fields:
       - "place"
       - "user"
-    order: "sequence"
 scenarios:
   - name: "Read"
     flow:
