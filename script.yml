@@ -1,5 +1,5 @@
 config:
-  target: "http://mnagy-neptune-441904449.us-east-1.elb.amazonaws.com/gremlin"
+  target: "http://mnagy2-740713273.us-east-1.elb.amazonaws.com/gremlin"
   phases:
     - duration: 5
       arrivalRate: 2
